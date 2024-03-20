@@ -10,26 +10,38 @@ button {
     margin: 5px;
 }
 
+.fade-text {
+    position: static;
+    transform: translate(192px, 36px);
+}
+
 .opaque-text {
     opacity: 0;
 }
 
-.invis-text {
+.invis-text-loss {
     animation: invis .5s forwards;
+    color: red
+}
+
+.invis-text-gain {
+    animation: invis .5s forwards;
+    color: green
 }
 
 @keyframes invis {
 
-    0%,
-    100% {
-        opacity: 0;
+    0% {
+        opacity: .2;
+        transform: translate(0px, 0px);
     }
 
     25% {
         opacity: 1;
     }
 
-    75% {
+    100% {
         opacity: 0;
+        transform: translate(0px, -50px);
     }
 }

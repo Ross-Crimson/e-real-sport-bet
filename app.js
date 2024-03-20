@@ -158,6 +158,7 @@ function BetAmount(team, betAmount) {
     let result = ''
     if (team == winner) {
         bank += betAmount
+        FadeText(betAmount)
         currentWinStreak++
         result = "You Won the Bet"
     }
@@ -167,6 +168,7 @@ function BetAmount(team, betAmount) {
     }
     else {
         bank -= betAmount
+        FadeText(-betAmount)
         currentWinStreak = 0
         result = "You Lost the Bet"
     }
@@ -179,6 +181,7 @@ function AllIn(team) {
     let result = ''
     if (team == winner) {
         bank += bank
+        FadeText(bank)
         currentWinStreak++
         result = "You Won the Bet"
     }
@@ -188,6 +191,7 @@ function AllIn(team) {
     }
     else {
         currentWinStreak = 0
+        FadeText(-bank)
         bank = 0
         result = "You Lost the Bet"
     }
@@ -198,8 +202,6 @@ function AllIn(team) {
 function PostResults(resultText) {
     if (bank > mostMoneyOwned) mostMoneyOwned = bank
     BankBustCheck()
-
-    FadeText()
 
     window.localStorage.setItem("high-bank", JSON.stringify(mostMoneyOwned))
 
@@ -246,14 +248,26 @@ function LoadHighBank() {
     highestBank.innerText = '$' + mostMoneyOwned.toString()
 }
 
-function FadeText() {
+function FadeText(moneyChange) {
     let text = document.getElementById("money-fade")
+    text.innerText = "$" + moneyChange
+
     text.classList.remove("opaque-text")
-    text.classList.add("invis-text")
-    setTimeout(() => {
-        text.classList.add("opaque-text")
-        text.classList.remove("invis-text")
-    }, 500)
+
+    if (moneyChange > 0) {
+        text.classList.add("invis-text-gain")
+        setTimeout(() => {
+            text.classList.add("opaque-text")
+            text.classList.remove("invis-text-gain")
+        }, 500)
+    }
+    else {
+        text.classList.add("invis-text-loss")
+        setTimeout(() => {
+            text.classList.add("opaque-text")
+            text.classList.remove("invis-text-loss")
+        }, 500)
+    }
 }
 
 LoadHighBank()
