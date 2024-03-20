@@ -1,4 +1,6 @@
 let bank = 100
+let mostMoneyOwned = 100
+let currentWinStreak = 0
 
 //players: name, teamNumber, emoji, skill
 const players = [
@@ -153,23 +155,71 @@ function AssignTeams() {
 
 function BetAmount(team, betAmount) {
     let winner = CheckStrongerTeam()
-    let result = document.getElementById("result")
+    let result = ''
     if (team == winner) {
         bank += betAmount
-        result.innerText = "You Won the Bet"
+        currentWinStreak++
+        result = "You Won the Bet"
     }
     else if (winner == 0) {
-        result.innerText = "It was a tie, no money change"
+        currentWinStreak = 0
+        result = "It was a tie, no money change"
     }
     else {
         bank -= betAmount
-        result.innerText = "You Lost the Bet"
+        currentWinStreak = 0
+        result = "You Lost the Bet"
     }
 
-    let playerMoney = document.getElementById("bank")
-    playerMoney.innerText = bank.toString()
+    PostResults(result)
+}
 
+function AllIn(team) {
+    let winner = CheckStrongerTeam()
+    let result = ''
+    if (team == winner) {
+        bank += bank
+        currentWinStreak++
+        result = "You Won the Bet"
+    }
+    else if (winner == 0) {
+        currentWinStreak = 0
+        result = "It was a tie, no money change"
+    }
+    else {
+        currentWinStreak = 0
+        bank = 0
+        result = "You Lost the Bet"
+    }
+
+    PostResults(result)
+}
+
+function PostResults(resultText) {
+    if (bank > mostMoneyOwned) mostMoneyOwned = bank
+    BankBustCheck()
+
+    FadeText()
+
+    window.localStorage.setItem("high-bank", JSON.stringify(mostMoneyOwned))
+
+    let result = document.getElementById("result")
+    let playerMoney = document.getElementById("bank")
+    let winStreak = document.getElementById("win-streak")
+
+    result.innerText = resultText
+    playerMoney.innerText = '$' + bank.toString()
+    winStreak.innerText = currentWinStreak.toString()
+
+    LoadHighBank()
     AssignTeams()
+}
+
+function BankBustCheck() {
+    if (bank < 0) {
+        bank = 100
+        window.alert("You went negative, lets go again 🤑")
+    }
 }
 
 function CheckStrongerTeam() {
@@ -189,4 +239,22 @@ function CheckStrongerTeam() {
     }
 }
 
+function LoadHighBank() {
+    mostMoneyOwned = JSON.parse(window.localStorage.getItem("high-bank"))
+
+    let highestBank = document.getElementById("highest-bank")
+    highestBank.innerText = '$' + mostMoneyOwned.toString()
+}
+
+function FadeText() {
+    let text = document.getElementById("money-fade")
+    text.classList.remove("opaque-text")
+    text.classList.add("invis-text")
+    setTimeout(() => {
+        text.classList.add("opaque-text")
+        text.classList.remove("invis-text")
+    }, 500)
+}
+
+LoadHighBank()
 AssignTeams()

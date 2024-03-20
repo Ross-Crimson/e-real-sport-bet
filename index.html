@@ -13,59 +13,80 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
-    <header class="container-fluid">
+<body class="background text-light">
+    <header class="container-fluid bg-dark">
         <section class="row">
-            <div>
-                Hyper Battle Gaming Bets
+            <div class="col">
+                <div>
+                    Hyper Battle Gaming Bets
+                </div>
+            </div>
+            <div class="col text-end">
+                <div class="row">
+                    <div class="col">
+                        <div>Current Win Streak: <span id="win-streak">0</span></div>
+                    </div>
+                    <div class="col">
+                        <div>Highest Bank: <span id="highest-bank">$100</span></div>
+                    </div>
+                </div>
             </div>
         </section>
     </header>
 
-    <main class="container-fluid">
+    <main class="container">
         <section class="row text-center">
-            <div>
-                <div>Bank: </div>
-                <div id="bank">$100</div>
-            </div>
-        </section>
-
-        <section class="row text-center">
-            <div class="col">
-                <div class="row">
-                    <div>
-                        <div>Team 1</div>
-                        <div id="team-1">🧑🧑🧑🧔🧑🧔</div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div>
-                        <button onclick="BetAmount(1, 10)" class="btn btn-primary">Bet 10</button>
-                        <button onclick="BetAmount(1, 100)" class="btn btn-primary">Bet 100</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="row">
-                    <div>
-                        <div>Team 2</div>
-                        <div id="team-2">🐱‍🐉🐱‍🐉🐱‍🐉😈🤓👹👺👹</div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div>
-                        <button onclick="BetAmount(2, 10)" class="btn btn-primary">Bet 10</button>
-                        <button onclick="BetAmount(2, 100)" class="btn btn-primary">Bet 100</button>
-                    </div>
+            <div clas="col-6">
+                <div class="card p-3">
+                    <h4>Bank: </h4>
+                    <h4 id="bank">$100</h4>
+                    <h4 id="money-fade" class="opaque-text">000</h4>
                 </div>
             </div>
         </section>
 
         <section class="row text-center">
-            <div>
-                <div id="result">
-                    Win/Lose
+            <div class="col-6">
+                <div class="row">
+                    <div>
+                        <h2>BLUE TEAM</h2>
+                        <div class="bg-primary rounded-pill m-5">
+                            <h3 id="team-1" class="p-2">🧑🧑🧑🧔🧑🧔</h3>
+                        </div>
+                    </div>
                 </div>
+                <div class="row">
+                    <div>
+                        <button onclick="BetAmount(1, 10)" class="btn btn-lg btn-primary">Bet 10</button>
+                        <button onclick="BetAmount(1, 100)" class="btn btn-lg btn-primary">Bet 100</button>
+                        <button onclick="AllIn(1)" class="btn btn-lg btn-primary">All In!</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <div>
+                        <h2>GREEN TEAM</h2>
+                        <div class="bg-success rounded-pill m-5">
+                            <h3 id="team-2" class="p-2">🐱‍🐉🐱‍🐉🐱‍🐉😈🤓👹👺👹</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <button onclick="BetAmount(2, 10)" class="btn btn-lg btn-success">Bet 10</button>
+                        <button onclick="BetAmount(2, 100)" class="btn btn-lg btn-success">Bet 100</button>
+                        <button onclick="AllIn(2)" class="btn btn-lg btn-success">All In!</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="row text-center justify-content-center">
+            <div class="col-2">
+                <h3 id="result" class="card p-3 shadow">
+                    Make a Bet!
+                </h3>
             </div>
         </section>
     </main>

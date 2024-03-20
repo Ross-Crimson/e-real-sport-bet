@@ -1,0 +1,35 @@
+.background {
+    min-height: 100dv;
+    background-image: url(https://external-preview.redd.it/Gx4p8dtcZjJ_WT3pmfTze-iWEvz11wS17LBhB3-VFbg.jpg?auto=webp&s=1bb3ecd75d22c4af38a18e062219303887f3a9d3);
+    background-position: top;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+button {
+    margin: 5px;
+}
+
+.opaque-text {
+    opacity: 0;
+}
+
+.invis-text {
+    animation: invis .5s forwards;
+}
+
+@keyframes invis {
+
+    0%,
+    100% {
+        opacity: 0;
+    }
+
+    25% {
+        opacity: 1;
+    }
+
+    75% {
+        opacity: 0;
+    }
+}
